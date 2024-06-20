@@ -1,0 +1,121 @@
+header {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  left: 0;
+  /* backdrop-filter: blur(2px);
+    box-shadow: 0px 0px 10px rgba(227, 228, 237, 0.37);
+    border: 2px solid rgba(255, 255, 255, 0.20);
+    border-radius: 2rem; */
+
+    backdrop-filter: blur(4px);
+    box-shadow: 0px 0px 10px rgba(227, 228, 237, 0.37);
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: transparent;
+  padding-inline: 0.2rem;
+  padding-block: .1rem;
+}
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.icon h2 {
+  color: var(--mainColor);
+  cursor: pointer;
+
+}
+.icon h2 span {
+  color: var(--white);
+}
+.icon img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.links ul li {
+  position: relative;
+  color: var(--gray);
+  cursor: pointer;
+
+}
+.links ul li:hover{
+  color: var(--mainColor);
+
+}
+.links ul li a {
+  text-decoration: none;
+  color: var(--gray3);
+}
+
+
+.links ul li a.active {
+  color: var(--mainColor);
+  border-bottom: 2px solid var(--mainColor);
+}
+.search {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid #999;
+  border-radius: 2rem;
+  padding-inline: 0.5rem;
+}
+.search input {
+  padding-inline: 0.5rem;
+  padding-block: 0.3rem;
+  border-radius: 2rem;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+.bars {
+  display: none;
+}
+
+@media (min-width: 320px) and (max-width: 750px) {
+  nav {
+    padding-block: 0.2rem;
+    justify-content: space-between;
+  }
+  .icon {
+    gap: 0.5rem;
+  }
+  .icon img {
+    width: 3rem;
+    height: 3rem;
+  }
+  .links ul {
+    display: none;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: absolute;
+    right: 0;
+    background: #99999900;
+    height: 150px;
+    width: 110px;
+    margin: 0 auto;
+    transition: all 400ms ease-in-out;
+
+  }
+ .links ul.open {
+    display: flex;
+  }
+  .search {
+    display: none;
+  }
+  .bars {
+    display: flex;
+  }
+  
+
+}
+

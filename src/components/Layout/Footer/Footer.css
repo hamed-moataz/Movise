@@ -1,0 +1,35 @@
+.footer{
+    background: #252424;
+    height: 20vh;
+
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    color: var(--white);
+}
+.socile{
+    font-size: 2.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+.date{
+    margin-top: 1rem;
+}
+
+@media(min-width: 320px) and (max-width: 761px){
+    .footer{
+        height: 15vh;
+    }
+}
+@media (min-width: 762px) and (max-width: 1200px){
+    .footer{
+        height: 10vh;
+    }        
+}
