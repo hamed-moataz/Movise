@@ -14,7 +14,7 @@ const Navbar = () => {
         <nav>
           <div className="icon">
             <h2>
-              Mo<span>vise</span>
+              Mo<span>vies</span>
             </h2>
             <img src={img1} alt="img" />
           </div>
