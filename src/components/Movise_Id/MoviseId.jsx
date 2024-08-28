@@ -18,7 +18,6 @@ const MoviseId = () => {
   async function allData (){
     const {data} = await axios.get(`${api_data}`)
     setShowData(data)
-    console.log(data)
   }
  
   useEffect(() => {
@@ -26,6 +25,7 @@ const MoviseId = () => {
       .then((res) => res.json())
       .then((item) => setMovie(item));
       allData ()
+      
   }, []);
 
 
@@ -86,16 +86,16 @@ const MoviseId = () => {
   return (
     <section className="sec-bg">
       <div className="header">
-        <img src={movie.movieCoverImage} alt={movie.title} />
+        <img src={movie.movieCoverImage} alt={movie.title} loading="lazy"/>
         <div className="des">
           <h2>the story of the movie</h2>
-          <p>{movie.description}</p>
+          <p>{movie.description}</p> 
         </div>
       </div>
       <div className="content">
         <div className="top">
           <div className="left">
-            <img src={movie.movieImage} alt={movie.title} />
+            <img src={movie.movieImage} alt={movie.title} loading="lazy" />
           </div>
           <div className="right">
             <h5>
@@ -124,19 +124,14 @@ const MoviseId = () => {
         </div>
      
       </div>
-      {/* <div className="similar-movies">
-        <h2>Similar Movies</h2>
-        <Slider {...settings}>
-          {similarMovies.map((similarMovie) => (
-            <div key={similarMovie.id}>
-              <img src={similarMovie.movieImage} alt={similarMovie.title} />
-              <h3>{similarMovie.title}</h3>
-            </div>
-          ))}
-        </Slider>
-      </div> */}
+   <div>
+
+   </div>
+  
+
     
     </section>
+    
   );
 };
 

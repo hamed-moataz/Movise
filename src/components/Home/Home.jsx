@@ -1,9 +1,6 @@
-
 import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
-
 
 // Import Swiper styles
 import "swiper/css";
@@ -23,26 +20,33 @@ import { FiTrendingUp } from "react-icons/fi";
 
 // import './styles.css';
 import "./Home.css";
-
 import axios from "axios";
 
 const Home = () => {
   const api = "https://moviesapi.runasp.net/api/Movies/GetAllAsync";
   const api_catogrey = "https://moviesapi.runasp.net/api/Genre/GetAllAsync";
-  const api_poster ="https://moviesapi.runasp.net/api/Movies/GetCoverHomeAsync";
+  const api_poster =
+    "https://moviesapi.runasp.net/api/Movies/GetCoverHomeAsync";
   const [showData, setShowData] = useState([]);
-  const [data , setData]= useState([])
+  const [data, setData] = useState([]);
   const [category, setCategory] = useState([]);
   const [poster, setPoster] = useState([]);
   async function getAllData() {
     const { data } = await axios.get(`${api}`);
     setShowData(data);
     const res = await axios.get(`${api}`);
-    setData (res.data.reverse());
+    setData(res.data.reverse());
   }
+  
   async function getCatogrey() {
-    const { data } = await axios.get(`${api_catogrey}`);
-    setCategory(data);
+    try {
+      const { data } = await axios.get("https://moviesapi.runasp.net/api/Genre/GetAllAsync",{
+        withCredentials: true,
+      });
+      setCategory(data);
+    } catch (error) {
+      console.error("Error fetching category data", error);
+    }
   }
   async function getPoster() {
     const { data } = await axios.get(`${api_poster}`);
@@ -55,6 +59,7 @@ const Home = () => {
     getPoster();
   }, []);
 
+
   const filterBtn = async (catName) => {
     const res = await axios.get(
       `https://moviesapi.runasp.net/api/Movies/GetAllWithGenresAsync?genreName=${catName}`
@@ -63,7 +68,6 @@ const Home = () => {
     setShowData(res.data);
   };
 
-  
   return (
     <div className="home">
       <Swiper
@@ -71,26 +75,29 @@ const Home = () => {
         pagination={{
           clickable: true,
         }}
-        modules={[Pagination ,Autoplay]}
+        modules={[Pagination, Autoplay]}
         autoplay={{
           delay: 3000,
         }}
-
         className="mySwiper"
       >
         {poster.map((movies) => (
           <SwiperSlide key={movies.id}>
-            <img src={movies.movieImage} alt={movies.title} />
+            <img src={movies.movieImage} alt={movies.title} loading="lazy" />
             <div className="detils">
               <h3>{movies.title}..!</h3>
               <p>{movies.description.substring(0, 200)}...</p>
-              <NavLink to={`/${movies.id}`}> <FaRegPlayCircle
-                            style={{
-                              fontSize: "22px",
-                              color: "#fff",
-                              marginRight: "5px",
-                            }}
-                          /> Watching</NavLink>
+              <NavLink to={`/${movies.id}`}>
+                {" "}
+                <FaRegPlayCircle
+                  style={{
+                    fontSize: "22px",
+                    color: "#fff",
+                    marginRight: "5px",
+                  }}
+                />{" "}
+                Watching
+              </NavLink>
             </div>
           </SwiperSlide>
         ))}
@@ -175,35 +182,32 @@ const Home = () => {
           autoplay={{
             delay: 2000,
           }}
-
           modules={[FreeMode, Autoplay, Pagination, Navigation]}
           navigation={true}
           className="mySwiper"
         >
           {showData.map((item) => (
             <SwiperSlide key={item.id}>
-              <NavLink to={`/${item.id}`} className="con" >
+              <NavLink to={`/${item.id}`} className="con">
                 <img src={item.movieImage} alt={item.title} />
                 <div className="detiles">
                   <div className="watch">
                     <div className="icon">
                       <h5>{item.title.substring(0, 22)} </h5>
-                      <div>
-                    
-                      </div>
+                      <div></div>
                     </div>
                     <div className="btn">
-                    <span
-                          style={{
-                            color: "#fff",
-                            paddingInline: "5px",
-                            fontSize: "14px",
-                            fontWeight: "500",
-                          }}
-                        >
-                          {item.imDbRating }
-                        <FaStar style={{color : "#DC5F00" }} />
-                        </span>
+                      <span
+                        style={{
+                          color: "#fff",
+                          paddingInline: "5px",
+                          fontSize: "14px",
+                          fontWeight: "500",
+                        }}
+                      >
+                        {item.imDbRating}
+                        <FaStar style={{ color: "#DC5F00" }} />
+                      </span>
                       <NavLink to={`/${item.id}`}>
                         <button className="detil">
                           {" "}
@@ -217,7 +221,6 @@ const Home = () => {
                           Watched
                         </button>
                       </NavLink>
-                   
                     </div>
                   </div>
                 </div>
@@ -225,8 +228,10 @@ const Home = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <h2 className="trending"><FiTrendingUp style={{margin: "5px"}} />
-        Trending</h2>
+        <h2 className="trending">
+          <FiTrendingUp style={{ margin: "5px" }} />
+          Trending
+        </h2>
         <Swiper
           slidesPerView={4}
           spaceBetween={30}
@@ -263,14 +268,12 @@ const Home = () => {
           {data.map((item) => (
             <SwiperSlide key={item.id}>
               <NavLink to={`/${item.id}`} className="con">
-                <img src={item.movieImage} alt={item.title}  />
+                <img src={item.movieImage} alt={item.title} loading="lazy" />
                 <div className="detiles"></div>
-               
               </NavLink>
             </SwiperSlide>
           ))}
         </Swiper>
-
       </div>
     </div>
   );
